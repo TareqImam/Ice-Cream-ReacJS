@@ -2,11 +2,11 @@ import React from 'react';
 // @ts-ignore
 import classes from './TotalPrice.module.css';
 
-const TotalPrice = () => {
+const TotalPrice = ({ price = 0 }) => {
   return (
     <div className={classes.total}>
       <div>Total Price</div>
-      <div>3000.00 Tk</div>
+      <div>{price.toFixed(2)} Tk</div>
     </div>
   );
 };
