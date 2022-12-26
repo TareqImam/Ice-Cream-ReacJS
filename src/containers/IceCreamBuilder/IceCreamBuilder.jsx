@@ -7,16 +7,22 @@ import Scoop from '../../components/IceCream/Scoop/Scoop';
 
 class IceCreamBuilder extends Component {
   state = {
-    items: {
-      vanilla: 45,
-      chocolate: 50,
-      lemon: 42,
-      orange: 43,
-      strawberry: 47,
-    },
+    items: {},
     scoops: [],
     totalPrice: 0,
   };
+
+  componentDidMount() {
+    fetch(
+      'https://react-ice-cream-app-ad4c4-default-rtdb.firebaseio.com/items.json'
+    )
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.setState({
+          items: responseData,
+        });
+      });
+  }
 
   addScope = (scoop) => {
     const { scoops, items } = this.state;
@@ -53,6 +59,7 @@ class IceCreamBuilder extends Component {
           price={totalPrice}
           add={this.addScope}
           remove={this.removeScope}
+          scoops={scoops}
         />
       </div>
     );

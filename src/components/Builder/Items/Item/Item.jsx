@@ -1,12 +1,16 @@
 import React from 'react';
 // @ts-ignore
 import classes from './Item.module.css';
+import { countBy } from 'lodash';
 
-const Item = ({ name, add, remove }) => {
+const Item = ({ name, add, remove, scoops = {} }) => {
+  const scoopsCountBy = countBy(scoops);
   return (
     <li className={classes.item}>
       <span>{name}</span>
-      <span className={classes.quantity}>2</span>
+      {scoopsCountBy[name] >= 0 ? (
+        <span className={classes.quantity}>{scoopsCountBy[name]}</span>
+      ) : null}
       <div className="right">
         <button
           onClick={add.bind(this, name)}
